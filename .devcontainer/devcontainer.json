@@ -3,7 +3,7 @@
 	"name": "aoc2025-go",
 	"build": {
 		"dockerfile": "Dockerfile",
-		"args": { // Don't forget to update ci-image.yml when changing these versions
+		"args": {
 			"GO_VERSION": "1.25.4",
 			"GOLANGCI_LINT_VERSION": "2.6.2"
 		}

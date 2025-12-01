@@ -4,9 +4,9 @@ Advent of Code 2025 in Go, using just the Go v1.25 standard library.
 
 Some best practices are deliberately ignored here. For example - I use `panic()` for any errors, [use `init()` functions](https://github.com/leighmcculloch/gochecknoinits), etc.
 
-Each day's challenge is completely self-contained in its directory, with no efforts made to deduplicate any code, update older challenges with any improvements made to the template in newer challenges, etc.
+Each day's challenge is completely self-contained in its directory, with no efforts made to deduplicate any code (other than having a skeleton template), update older challenges with any improvements made to the template in newer challenges, etc.
 
-`skeleton/` contains the template which can be generated into a proper usable starting point for each day by doing the following:
+This repo also uses [devcontainers](https://blog.stogas.dev/2025/10/18/devcontainers/).
 
 #### Generating a daily challenge directory from the skeleton template
 
