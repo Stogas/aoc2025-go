@@ -1,2 +1,36 @@
 # aoc2025-go
-Advent of Code 2025 in Go
+
+Advent of Code 2025 in Go, using just the Go v1.25 standard library.
+
+Some best practices are deliberately ignored here. For example - I use `panic()` for any errors, [use `init()` functions](https://github.com/leighmcculloch/gochecknoinits), etc.
+
+Each day's challenge is completely self-contained in its directory, with no efforts made to deduplicate any code, update older challenges with any improvements made to the template in newer challenges, etc.
+
+`skeleton/` contains the template which can be generated into a proper usable starting point for each day by doing the following:
+
+#### Generating a daily challenge directory from the skeleton template
+
+Run `./create-day.sh <N>` where `N` is the day number
+
+#### Running the code for a daily challenge
+
+1. Create `dayN/test.txt`
+2. Create `dayN/input.txt`
+3. Run: `go run dayN/main.go -part <1 or 2> [-test]`
+
+`-test` will run the `test.txt` inputs instead of `input.txt`
+
+#### Compiling and running
+
+Almost the same as the previous section, but compiles ahead of time to measure real performance. Can be used for comparing with other solutions for the same daily challenge.
+
+This has the added benefit of actually embedding the input data into the compiled binary, allowing to share the solution program in just a single binary executable.
+
+1. Create `dayN/test.txt`
+2. Create `dayN/input.txt`
+3. `mkdir bin/`
+4. Build: `go build -o bin/dayN dayN/main.go`
+5. Run: `bin/dayN -part <1 or 2> [-test]`
+
+`-test` will run the `test.txt` inputs instead of `input.txt`
+

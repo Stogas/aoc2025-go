@@ -1,0 +1,226 @@
+# Up to date as of golangci-lint version 2.5.0
+# Note: this linter config is copied from one of my other repos, and might contain excessive configuration.
+version: "2"
+linters:
+  default: none
+  enable:
+    # Error Handling and Correctness
+    - errcheck # Checks for unchecked errors in Go code.
+    - govet # Reports suspicious constructs and potential bugs.
+    - staticcheck # Advanced static analysis for correctness and performance.
+    - errorlint # Finds issues with error wrapping (Go 1.13+).
+    - modernize # Suggest simplifications to Go code, using modern language and library features.
+    - nilerr # Ensures errors are not nil when checked.
+    - nilnesserr # Reports mismatches where err != nil is checked but a different nil is returned.
+    - nilnil # Prevents simultaneous return of nil error and an invalid value.
+
+    # Code Quality and Readability
+    - ineffassign # Detects assignments to variables that are never used.
+    - unused # Finds unused constants, variables, functions, and types.
+    - funlen # Detects overly long functions.
+    - gocognit # Computes cognitive complexity to flag hard-to-read code.
+    - goconst # Finds repeated strings that could be replaced with constants.
+    - gocritic # Provides diagnostics for bugs, performance, and style issues.
+    - dupl # Detects duplicate code fragments.
+    - misspell # Finds commonly misspelled English words.
+    - dupword # Checks for duplicate words in the source code.
+    - godot # Ensures comments end with a period for consistency.
+    - whitespace # Checks for unnecessary whitespace in the code.
+    - nonamedreturns # Reports functions with named return parameters.
+    - revive # Enforces style and idiomatic Go practices.
+    - nestif # Flags deeply nested if statements.
+    - nakedret # Warns about naked returns in functions.
+    - exptostd # Detects functions from golang.org/x/exp/ that can be replaced by std functions.
+
+    # Security and Resource Management
+    - gosec # Inspects code for common security issues.
+    - godox # Detects TODO, FIXME, and similar comment keywords.
+    - noctx # Ensures HTTP requests use context.Context.
+    - bodyclose # Checks that HTTP response bodies are properly closed.
+    - spancheck # Validates correct usage of OpenTelemetry/Census spans.
+    - nosprintfhostport # Checks for misuse of fmt.Sprintf for host/port construction.
+    - protogetter # Enforces use of getters for protocol buffer message fields.
+    - durationcheck # Detects improper multiplication of time.Duration values.
+
+    # Identifier and Naming Conventions
+    - predeclared # Flags shadowing of Go's predeclared identifiers.
+    - errname # Enforces proper naming for error variables and types.
+    - goprintffuncname # Ensures printf-like functions are named with an "f" suffix.
+    - canonicalheader # Verifies that HTTP header keys are in canonical form.
+
+    # Performance and Efficiency
+    - perfsprint # Suggests faster alternatives to fmt.Sprintf.
+    - unconvert # Removes unnecessary type conversions.
+    - makezero # Identifies slice declarations with a non-zero initial length.
+    - wastedassign # Detects wasted assignment statements.
+    - intrange # Encourages use of range loops instead of index-based loops.
+    - copyloopvar # Detects incorrect copying of loop variables in closures.
+
+    # Complexity and Exhaustiveness
+    - exhaustive # Checks exhaustiveness of enum switch statements.
+    - gochecksumtype # Ensures exhaustiveness on Go "sum types".
+    - cyclop # Evaluates cyclomatic complexity of functions and packages.
+
+    # Logging and Metrics
+    - sloglint # Ensures consistent use of log/slog for structured logging.
+    - promlinter # Validates naming conventions for Prometheus metrics.
+
+    # Module and Compiler Directives
+    - gomoddirectives # Manages 'replace', 'retract', and 'excludes' in go.mod.
+    - gomodguard # Allow and block list linter for direct Go module dependencies.
+    - gocheckcompilerdirectives # Validates special go compiler directive comments.
+    - nolintlint # Reports improperly formatted or insufficient nolint directives.
+
+    # Interface and Design Best Practices
+    - iface # Detects improper use of interfaces to avoid overengineering.
+    - reassign # Ensures that package variables are not reassigned.
+    - gochecknoglobals # Checks for the presence of global variables.
+    # - gochecknoinits # Ensures no init functions are present for better clarity.
+
+    # Testing and Documentation
+    - tparallel # Detects inappropriate usage of t.Parallel() in tests.
+    - testableexamples # Checks that example code in tests is properly testable.
+    - usetesting # Flags misuse of testing package functions.
+    - testifylint # Validates correct usage of the testify framework.
+    # - godoclint # Ensures documentation comments are present and well-formed.
+
+    # Unicode and Identifier Safety
+    - asciicheck # Ensures identifiers contain only ASCII characters.
+    - bidichk # Checks for dangerous Unicode bidirectional characters.
+
+  settings:
+    errcheck:
+      check-type-assertions: true
+      check-blank: true
+    funlen:
+      lines: 60
+      statements: 40
+      ignore-comments: true
+    staticcheck:
+      checks:
+        - all
+        - "-ST1000" # excluded by default, handled in godoclint
+        - "-ST1020" # excluded by default, handled in godoclint
+        - "-ST1021" # excluded by default, handled in godoclint
+        - "-ST1022" # excluded by default, handled in godoclint
+    revive:
+      enable-all-rules: true
+      rules:
+        - name: add-constant
+          arguments:
+            - allow-strs: '""," ","\n"'
+              allow-ints: "0,1"
+        - name: exported # disabling, handled in godoclint
+          disabled: true
+        - name: package-comments # disabling, handled in godoclint
+          disabled: true
+        - name: receiver-naming # disabling, handled in staticheck:ST1006
+          disabled: true
+        - name: cyclomatic # disabling, handled in cyclop
+          disabled: true
+        - name: cognitive-complexity # disabling, handled in gocognit
+          disabled: true
+        - name: line-length-limit # disabling, annoying
+          disabled: true
+        - name: import-shadowing # disabling, not important
+          disabled: true
+        - name: flag-parameter # temporarily disabled, TODO
+          disabled: true
+    godoclint:
+      default: all
+      options:
+        max-len:
+          length: 150
+    gocognit:
+      min-complexity: 10 # TODO: reduce to 7
+    goconst:
+      numbers: true
+    godox:
+      keywords:
+        # - TODO
+        - BUG
+        - FIXME
+    sloglint:
+      no-mixed-args: true
+      kv-only: true
+      attr-only: false # TODO: enable this
+      context: all
+      static-msg: true
+      no-raw-keys: true
+      key-naming-case: snake
+      forbidden-keys:
+        - time
+        - level
+        - msg
+        - source
+      args-on-sep-lines: false
+    nolintlint:
+      require-explanation: true
+      require-specific: true
+    cyclop:
+      max-complexity: 10
+      package-average: 10.0
+    nakedret:
+      max-func-lines: 0
+    gocritic:
+      settings:
+        underef:
+          # Whether to skip (*x).method() calls where x is a pointer receiver.
+          skipRecvDeref: false
+    usetesting:
+      os-temp-dir: true
+    gomodguard:
+      blocked:
+        # List of blocked modules.
+        modules:
+          - github.com/golang/protobuf:
+              recommendations:
+                - google.golang.org/protobuf
+              reason: "see https://developers.google.com/protocol-buffers/docs/reference/go/faq#modules"
+          - github.com/satori/go.uuid:
+              recommendations:
+                - github.com/gofrs/uuid/v5
+              reason: "satori's package is not maintained"
+          - github.com/google/uuid:
+              recommendations:
+                - github.com/gofrs/uuid/v5
+              reason: "google's uuid package seems to be barely maintained"
+          - github.com/golang-jwt/jwt:
+              recommendations:
+                - github.com/lestrrat-go/jwx
+              reason: "lestrrat's packge simply seems smarter"
+          - github.com/go-yaml/yaml:
+              recommendations:
+                - github.com/goccy/go-yaml
+              reason: "the original package has been deprecated"
+          - github.com/ghodss/yaml:
+              recommendations:
+                - github.com/goccy/go-yaml
+              reason: "the ghodss package uses the original go-yaml package under the hood, which has been deprecated"
+          - sigs.k8s.io/yaml:
+              recommendations:
+                - github.com/goccy/go-yaml
+              reason: "the kubernetes package is not intended to be used directly"
+  exclusions:
+    presets:
+      - common-false-positives
+      - std-error-handling
+    rules:
+      # Exclude some linters from running on tests files.
+      - path: _test\.go
+        linters:
+          - gosec
+          - dupl
+formatters:
+  enable:
+    - gofmt
+    - goimports
+  settings:
+    gofmt:
+      rewrite-rules:
+        - pattern: "interface{}"
+          replacement: "any"
+        - pattern: "a[b:len(a)]"
+          replacement: "a[b:]"
+output:
+  show-stats: true

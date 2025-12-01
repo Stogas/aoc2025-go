@@ -1,0 +1,1 @@
+This is a placeholder file so that skeleton/main.go does not complain about not finding any files to embed

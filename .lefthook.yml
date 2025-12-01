@@ -1,0 +1,10 @@
+assert_lefthook_installed: true
+
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      run: golangci-lint run
+
+    go-mod-tidy-check:
+      run: go mod tidy -diff
