@@ -44,16 +44,16 @@ func main() {
 		input = testInput
 	}
 
-	var ans int
+	var answer int
 	switch part {
 	case 1:
-		ans = part1(input)
+		answer = part1(input)
 	case 2: //nolint:revive // add-constant rule triggers here, let's just hardcode it
-		ans = part2(input)
+		answer = part2(input)
 	default:
 		panic("invalid challenge part, must be 1 or 2")
 	}
-	fmt.Println("Output:", ans)
+	fmt.Println("Output:", answer)
 }
 
 // part1 solves part 1 of the day's challenge.
