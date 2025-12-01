@@ -6,6 +6,8 @@ Some best practices are deliberately ignored here. For example - I use `panic()`
 
 Each day's challenge is completely self-contained in its directory, with no efforts made to deduplicate any code (other than having a skeleton template), update older challenges with any improvements made to the template in newer challenges, etc.
 
+AI is not used for solving daily challenges, and autocomplete suggestions are disabled.
+
 This repo also uses [devcontainers](https://blog.stogas.dev/2025/10/18/devcontainers/).
 
 #### Generating a daily challenge directory from the skeleton template
