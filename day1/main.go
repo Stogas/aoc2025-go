@@ -1,6 +1,6 @@
 // started        at: 2025-12-01 17:29:40+02:00
 // finished part1 at: 2025-12-01 18:11:31+02:00
-// finished part2 at: ---
+// finished part2 at: 2025-12-01 19:15:34+02:00
 
 package main
 
@@ -31,12 +31,14 @@ type command struct {
 }
 
 type dial struct {
-	currentState int
+	currentState           int
+	countOfZeroesInAnyStep int
 }
 
 func newDial() dial {
 	var d dial
 	d.currentState = startingDialValue
+	d.countOfZeroesInAnyStep = 0 // explicit for clarity
 	return d
 }
 
@@ -48,21 +50,64 @@ func (d *dial) rotateDial(c command) {
 
 	targetUnsafeState := d.currentState + directionMultiplier*c.steps
 
-	d.currentState = fixDialOverflow(targetUnsafeState)
+	// overflow handling and counting
+	if c.clockwise {
+		for !isSafeValue(targetUnsafeState) {
+			targetUnsafeState -= dialOverflowCorrection
+			d.countOfZeroesInAnyStep++
+		}
+		d.currentState = targetUnsafeState
+		if d.currentState == 0 { // we already counted it in overflow
+			d.countOfZeroesInAnyStep--
+		}
+	} else { // counter-clockwise
+		overflowCount := 0 // we'll use this to count how many zeroes we pass or end on
+		for !isSafeValue(targetUnsafeState) {
+			targetUnsafeState += dialOverflowCorrection
+			overflowCount++
+		}
+		if d.currentState == 0 { // then one of the overflows didn't pass zero
+			overflowCount--
+		}
+		if targetUnsafeState == 0 { // we arrive at a zero, so we must count it
+			overflowCount++
+		}
+		d.currentState = targetUnsafeState
+		d.countOfZeroesInAnyStep += overflowCount
+		if d.currentState == 0 { // we already counted it in overflow
+			d.countOfZeroesInAnyStep--
+		}
+	}
+
+	for !isSafeValue(targetUnsafeState) {
+		if c.clockwise {
+			targetUnsafeState -= dialOverflowCorrection
+			if targetUnsafeState != 0 { // we can't count this if it ends at that zero, because we count it down below after the loop
+				d.countOfZeroesInAnyStep++
+			}
+		} else {
+			targetUnsafeState += dialOverflowCorrection
+		}
+	}
+
+	d.currentState = targetUnsafeState
+	if d.currentState == 0 {
+		d.countOfZeroesInAnyStep++
+	}
+
+	// resultState,  := d.fixDialOverflow(targetUnsafeState)
+}
+
+func isSafeValue(value int) bool {
+	if value >= minDialValue && value <= maxDialValue {
+		return true
+	}
+
+	return false
 }
 
 func (d dial) isPointingAtZero() bool {
 	return d.currentState == 0
-}
-
-func fixDialOverflow(input int) int { // designed with recursion in mind
-	if input < minDialValue {
-		return fixDialOverflow(input + dialOverflowCorrection)
-	} else if input > maxDialValue {
-		return fixDialOverflow(input - dialOverflowCorrection)
-	}
-
-	return input
 }
 
 // init() runs before main() and formats/validates the embedded inputs.
@@ -127,7 +172,14 @@ func part2(input string) int {
 	parsed := parseInput(input)
 	fmt.Println(parsed)
 
-	return 0
+	vault := newDial()
+
+	for _, cmd := range parsed {
+		vault.rotateDial(cmd)
+		fmt.Printf("current state: %d\t-- count of zeroes in any step: %d\n", vault.currentState, vault.countOfZeroesInAnyStep)
+	}
+
+	return vault.countOfZeroesInAnyStep
 }
 
 func parseInput(input string) []command {

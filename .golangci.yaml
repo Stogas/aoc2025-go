@@ -18,7 +18,7 @@ linters:
     - ineffassign # Detects assignments to variables that are never used.
     - unused # Finds unused constants, variables, functions, and types.
     - funlen # Detects overly long functions.
-    - gocognit # Computes cognitive complexity to flag hard-to-read code.
+    # - gocognit # Computes cognitive complexity to flag hard-to-read code.
     - goconst # Finds repeated strings that could be replaced with constants.
     - gocritic # Provides diagnostics for bugs, performance, and style issues.
     - dupl # Detects duplicate code fragments.
@@ -28,7 +28,7 @@ linters:
     - whitespace # Checks for unnecessary whitespace in the code.
     - nonamedreturns # Reports functions with named return parameters.
     - revive # Enforces style and idiomatic Go practices.
-    - nestif # Flags deeply nested if statements.
+    # - nestif # Flags deeply nested if statements.
     - nakedret # Warns about naked returns in functions.
     - exptostd # Detects functions from golang.org/x/exp/ that can be replaced by std functions.
 
@@ -59,7 +59,7 @@ linters:
     # Complexity and Exhaustiveness
     - exhaustive # Checks exhaustiveness of enum switch statements.
     - gochecksumtype # Ensures exhaustiveness on Go "sum types".
-    - cyclop # Evaluates cyclomatic complexity of functions and packages.
+    # - cyclop # Evaluates cyclomatic complexity of functions and packages.
 
     # Logging and Metrics
     - sloglint # Ensures consistent use of log/slog for structured logging.

@@ -8,6 +8,8 @@ Each day's challenge is completely self-contained in its directory, with no effo
 
 AI is not used for solving daily challenges, and autocomplete suggestions are disabled.
 
+The goal is not to solve the challenge as fast as possible - it's to solve it in a reasonable amount of time while keeping performance good (i.e. no bruteforcing).
+
 This repo also uses [devcontainers](https://blog.stogas.dev/2025/10/18/devcontainers/).
 
 #### Generating a daily challenge directory from the skeleton template
