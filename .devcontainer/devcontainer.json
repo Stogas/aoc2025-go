@@ -1,0 +1,37 @@
+{
+	// main
+	"name": "aoc2025-go",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": { // Don't forget to update ci-image.yml when changing these versions
+			"GO_VERSION": "1.25.4",
+			"GOLANGCI_LINT_VERSION": "2.6.2"
+		}
+	},
+	"remoteUser": "developer",
+	"containerUser": "developer",
+	// vscode settings
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "bash"
+			},
+			"extensions": [
+				"pkief.material-icon-theme", // Material Icon Theme
+				"golang.go" // Go
+			]
+		}
+	},
+	// ports
+	"forwardPorts": [],
+	"portsAttributes": {},
+	"onCreateCommand": "",
+	"updateContentCommand": "",
+	"postCreateCommand": {
+		"go dependencies": "go mod download"
+	},
+	"postStartCommand": {}
+	// "postAttachCommand": {
+	// 	"chown-workspace": "sudo chown -R developer:developer /workspaces"
+	// }
+}
