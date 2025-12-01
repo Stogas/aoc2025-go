@@ -56,6 +56,8 @@ func main() {
 	fmt.Println("Output:", ans)
 }
 
+// part1 solves part 1 of the day's challenge.
+// Keep this function signature intact for unit tests to work seamlessly.
 func part1(input string) int {
 	parsed := parseInput(input)
 	fmt.Println(parsed)
@@ -63,6 +65,8 @@ func part1(input string) int {
 	return 0
 }
 
+// part2 solves part 2 of the day's challenge.
+// Keep this function signature intact for unit tests to work seamlessly.
 func part2(input string) int {
 	parsed := parseInput(input)
 	fmt.Println(parsed)

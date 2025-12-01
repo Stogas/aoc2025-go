@@ -8,3 +8,6 @@ pre-commit:
 
     go-mod-tidy-check:
       run: go mod tidy -diff
+
+    unit-tests:
+      run: go test ./...

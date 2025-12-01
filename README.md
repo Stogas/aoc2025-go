@@ -20,6 +20,23 @@ Run `./create-day.sh <N>` where `N` is the day number
 
 `-test` will run the `test.txt` inputs instead of `input.txt`
 
+#### Testing a daily challenge
+
+Each day carries a lightweight unit test suite that exercises the sample input (`test.txt`).
+
+1. Populate `dayN/test.txt` with the sample input.
+2. Add the expected answers to `dayN/test_results.txt` using the format:
+
+	```
+	part1=24000
+	part2=45000
+	```
+
+	Use `?` (or `-`) to skip a part until you have a solution, e.g. `part2=?`.
+3. Run `go test ./dayN` (or simply `go test ./...` from the repo root) to validate the implementation.
+
+`go test` is also wired into `lefthook`, so commits will fail fast if a day's sample answers drift from what is saved in `test_results.txt`.
+
 #### Compiling and running
 
 Almost the same as the previous section, but compiles ahead of time to measure real performance. Can be used for comparing with other solutions for the same daily challenge.
