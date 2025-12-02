@@ -1,6 +1,6 @@
 // started        at: 2025-12-02 10:48:28+02:00 // went on a bathroom break for about 6 minutes tho
 // finished part1 at: 2025-12-02 11:24:34+02:00
-// finished part2 at: ---
+// finished part2 at: 2025-12-02 11:46:54+02:00
 
 package main
 
@@ -67,7 +67,7 @@ func part1(input string) int {
 
 	var sumOfInvalidNumbers int
 	for _, numberRange := range parsed {
-		for _, invalidNumber := range processRange(numberRange) {
+		for _, invalidNumber := range processRange(numberRange, false) {
 			fmt.Printf("invalid ID: %d\n", invalidNumber)
 			sumOfInvalidNumbers += invalidNumber
 		}
@@ -82,7 +82,15 @@ func part2(input string) int {
 	parsed := parseInput(input)
 	fmt.Println(parsed)
 
-	return 0
+	var sumOfInvalidNumbers int
+	for _, numberRange := range parsed {
+		for _, invalidNumber := range processRange(numberRange, true) {
+			fmt.Printf("invalid ID: %d\n", invalidNumber)
+			sumOfInvalidNumbers += invalidNumber
+		}
+	}
+
+	return sumOfInvalidNumbers
 }
 
 func parseInput(input string) []idRange {
@@ -114,7 +122,7 @@ func stringToIDRange(input string) idRange {
 	}
 }
 
-func isValid(input int) bool {
+func isValidPart1(input int) bool {
 	inputString := strconv.Itoa(input)
 	length := len(inputString)
 
@@ -131,12 +139,39 @@ func isValid(input int) bool {
 	return true
 }
 
-func processRange(input idRange) []int {
+func isValidPart2(input int) bool {
+	inputString := strconv.Itoa(input)
+	length := len(inputString)
+
+	// prefix is the repeated number
+	for prefixLength := 1; prefixLength <= length/2; prefixLength++ {
+		modulo := length % prefixLength
+
+		if modulo != 0 { // the ID cannot fit the prefix multiple times, and thus this prefix is not correct
+			continue
+		}
+		repeatCount := length / prefixLength
+
+		if strings.Repeat(inputString[:prefixLength], repeatCount) == inputString {
+			return false
+		}
+	}
+
+	return true // no prefix was repeated in the ID, thus the ID is valid
+}
+
+func processRange(input idRange, parttwo bool) []int {
 	var result []int
 	for number := input.firstID; number <= input.lastID; number++ {
 		// fmt.Printf("processing number %d\n", number)
-		if !isValid(number) {
-			result = append(result, number)
+		if !parttwo { // part 1
+			if !isValidPart1(number) {
+				result = append(result, number)
+			}
+		} else { // part 2
+			if !isValidPart2(number) {
+				result = append(result, number)
+			}
 		}
 	}
 	return result
