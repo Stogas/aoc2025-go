@@ -1,6 +1,6 @@
 # aoc2025-go
 
-Advent of Code 2025 in Go, using just the Go v1.25 standard library.
+[Advent of Code 2025](https://adventofcode.com/2025) in Go, using just the Go v1.25 standard library.
 
 Some best practices are deliberately ignored here. For example - I use `panic()` for any errors, [use `init()` functions](https://github.com/leighmcculloch/gochecknoinits), etc.
 
@@ -8,7 +8,7 @@ Each day's challenge is completely self-contained in its directory, with no effo
 
 AI is not used for solving daily challenges, and autocomplete suggestions are disabled.
 
-The goal is not to solve the challenge as fast as possible - it's to solve it in a reasonable amount of time while keeping performance good (i.e. no bruteforcing).
+My goal is not to solve the challenge as fast as possible - it's to solve it in a reasonable amount of time while keeping performance good (i.e. no bruteforcing).
 
 This repo also uses [devcontainers](https://blog.stogas.dev/2025/10/18/devcontainers/).
 
