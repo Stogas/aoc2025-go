@@ -138,7 +138,7 @@ func main() {
 	switch part {
 	case 1:
 		answer = part1(input)
-	case 2: //nolint:revive // add-constant rule triggers here, let's just hardcode it
+	case 2:
 		answer = part2(input)
 	default:
 		panic("invalid challenge part, must be 1 or 2")
