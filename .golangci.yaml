@@ -26,7 +26,7 @@ linters:
     - dupword # Checks for duplicate words in the source code.
     - godot # Ensures comments end with a period for consistency.
     - whitespace # Checks for unnecessary whitespace in the code.
-    - nonamedreturns # Reports functions with named return parameters.
+    # - nonamedreturns # Reports functions with named return parameters.
     - revive # Enforces style and idiomatic Go practices.
     # - nestif # Flags deeply nested if statements.
     - nakedret # Warns about naked returns in functions.
