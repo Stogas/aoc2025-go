@@ -27,7 +27,7 @@ linters:
     - godot # Ensures comments end with a period for consistency.
     - whitespace # Checks for unnecessary whitespace in the code.
     # - nonamedreturns # Reports functions with named return parameters.
-    - revive # Enforces style and idiomatic Go practices.
+    # - revive # Enforces style and idiomatic Go practices.
     # - nestif # Flags deeply nested if statements.
     - nakedret # Warns about naked returns in functions.
     - exptostd # Detects functions from golang.org/x/exp/ that can be replaced by std functions.

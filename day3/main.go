@@ -1,6 +1,6 @@
 // started        at: 2025-12-03 11:27:17+02:00
 // finished part1 at: 2025-12-03 11:57:22+02:00
-// finished part2 at: ---
+// finished part2 at: 2025-12-03 12:32:58+02:00
 
 package main
 
@@ -102,7 +102,61 @@ func part2(input string) int {
 	parsed := parseInput(input)
 	fmt.Println(parsed)
 
-	return 0
+	finalSum := 0
+
+	for _, row := range parsed {
+		batteries := find12Batteries(row)
+
+		batterySum := 0
+		for _, digit := range batteries {
+			batterySum = batterySum*10 + digit
+		}
+
+		finalSum += batterySum
+	}
+
+	return finalSum
+}
+
+func find12Batteries(row string) []int {
+	var digits []int
+	for neededDigits := 11; neededDigits >= 0; neededDigits-- {
+		digit, idx := findHighestDigitWithSufficientSpaceForNMoreDigits(row, neededDigits)
+		digits = append(digits, digit)
+		rowToTheRight := row[idx+1:]
+
+		// fmt.Printf("In row %s, found highest digit %d at index %d, reducing the row to %s\n", row, digit, idx, rowToTheRight)
+		row = rowToTheRight
+	}
+	return digits
+}
+
+func findHighestDigitWithSufficientSpaceForNMoreDigits(input string, digitsToTheRight int) (digit, index int) {
+	for digitMustBeLowerThan := 10; digitMustBeLowerThan > 1; digitMustBeLowerThan-- {
+		// fmt.Printf("Looking for the highest digit in %s that allows for %d digits to the right while being lower than digit %d... ", input, digitsToTheRight, digitMustBeLowerThan)
+		d, idx := findHighestDigitLowerThan(input, digitMustBeLowerThan)
+		if len(input[idx+1:]) >= digitsToTheRight {
+			// fmt.Printf("Found digit %d at index %d\n", d, idx)
+			return d, idx
+		}
+		// fmt.Println("Didn't find it, gonna look for a lower digit")
+	}
+	panic("This shouldn't happen")
+}
+
+func findHighestDigitLowerThan(input string, lowerThanThis int) (digit, index int) {
+	var builder strings.Builder
+	for _, digit := range input {
+		if int(digit-'0') < lowerThanThis {
+			builder.WriteByte(byte(digit))
+		}
+	}
+	newRow := builder.String()
+
+	highestDigit := slices.Max(rowToInts(newRow))
+	idx := strings.Index(input, strconv.Itoa(highestDigit))
+
+	return highestDigit, idx
 }
 
 func parseInput(input string) []string {
