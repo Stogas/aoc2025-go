@@ -4,7 +4,12 @@
 
 Some best practices are deliberately ignored here. For example - I use `panic()` for any errors, [use `init()` functions](https://github.com/leighmcculloch/gochecknoinits), etc.
 
+
 Each day's challenge is completely self-contained in its directory, with no efforts made to deduplicate any code (other than having a skeleton template), update older challenges with any improvements made to the template in newer challenges, etc.
+
+#### Benchmark Results
+
+Each day's directory contains benchmark results (`bench.md`) generated using [aoc-bench-script](https://github.com/Stogas/aoc-bench-script). These files show performance measurements for both parts of the day's solution, including system info and timing statistics.
 
 AI is not used for solving daily challenges, and autocomplete suggestions are disabled.
 
