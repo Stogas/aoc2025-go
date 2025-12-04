@@ -114,7 +114,7 @@ func part2(input string) int {
 	parsed := parseInput(input)
 	fmt.Println(parsed)
 
-	// stupid bruteforce, but works fast enough
+	// essentially a stupid bruteforce, but sub-10 milliseconds is fast enough for me to consider this performant (see bench.md)
 
 	var removedRolls int
 	for {

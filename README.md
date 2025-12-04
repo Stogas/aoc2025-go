@@ -13,7 +13,7 @@ Each day's directory contains benchmark results (`bench.md`) generated using [ao
 
 AI is not used for solving daily challenges, and autocomplete suggestions are disabled.
 
-My goal is not to solve the challenge as fast as possible - it's to solve it in a reasonable amount of time while keeping performance good (i.e. no bruteforcing).
+My goal is not to solve the challenge as fast as possible - it's to solve it in a reasonable amount of time while keeping performance good (i.e. no slow bruteforcing - preferably a solution will be printed in less than a second, and optimally faster than 100ms).
 
 This repo also uses [devcontainers](https://blog.stogas.dev/2025/10/18/devcontainers/).
 
