@@ -1,6 +1,6 @@
 // started        at: 2025-12-04 11:27:26+02:00
 // finished part1 at: 2025-12-04 11:53:56+02:00
-// finished part2 at: ---
+// finished part2 at: 2025-12-04 12:06:07+02:00
 
 package main
 
@@ -114,7 +114,49 @@ func part2(input string) int {
 	parsed := parseInput(input)
 	fmt.Println(parsed)
 
-	return 0
+	// stupid bruteforce, but works fast enough
+
+	var removedRolls int
+	for {
+		removed := parsed.removeAccessibleRolls()
+		if removed == 0 {
+			break
+		}
+		removedRolls += removed
+	}
+
+	return removedRolls
+}
+
+type coordinates struct {
+	x int
+	y int
+}
+
+func (g cellGrid) removeAccessibleRolls() (removed int) {
+	var accessibleRolls []coordinates
+
+	for rowIdx, row := range g {
+		for columnIdx, cell := range row {
+			if !cell {
+				continue
+			}
+
+			// fmt.Printf("Checking roll at %d,%d\n", rowIdx, columnIdx)
+
+			countOfAdjacentRolls := g.adjacentRolls(rowIdx, columnIdx)
+			if countOfAdjacentRolls < 4 {
+				// fmt.Printf("Found accessible roll at %d,%d, adjacent count was %d\n", rowIdx, columnIdx, countOfAdjacentRolls)
+				accessibleRolls = append(accessibleRolls, coordinates{x: rowIdx, y: columnIdx})
+			}
+		}
+	}
+
+	for _, cell := range accessibleRolls {
+		g[cell.x][cell.y] = false
+	}
+
+	return len(accessibleRolls)
 }
 
 func parseInput(input string) cellGrid {
