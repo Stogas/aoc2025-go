@@ -5,7 +5,7 @@ FROM golang:${GO_VERSION} AS runner
 
 ARG TARGETARCH TARGETOS
 
-RUN apt-get update && apt-get install -y sudo bash git openssh-client curl nano jq gnupg2 tar && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y sudo bash git openssh-client curl nano jq gnupg2 tar time && rm -rf /var/lib/apt/lists/*
 
 # installs to /usr/local/other-utils
 # changest most rarely, so is installed first
