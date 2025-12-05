@@ -41,8 +41,21 @@ echo
 # build the day's binary
 mkdir -p bin
 BIN_PATH="bin/day${DAY}"
-echo "Building ${DAY_DIR}/main.go -> ${BIN_PATH}"
-go build -o "$BIN_PATH" "${DAY_DIR}/main.go"
+
+if [ -f "$BIN_PATH" ]; then
+	echo "Binary already exists at $BIN_PATH"
+	read -p "Would you like to recompile? (y/n) " -n 1 -r
+	echo
+	if [[ $REPLY =~ ^[Yy]$ ]]; then
+		echo "Building ${DAY_DIR}/main.go -> ${BIN_PATH}"
+		go build -o "$BIN_PATH" "${DAY_DIR}/main.go"
+	else
+		echo "Using existing binary at $BIN_PATH"
+	fi
+else
+	echo "Building ${DAY_DIR}/main.go -> ${BIN_PATH}"
+	go build -o "$BIN_PATH" "${DAY_DIR}/main.go"
+fi
 
 OUTPUT_FILE="${DAY_DIR}/bench.md"
 echo "# Day ${DAY} - bench run: $(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> "$OUTPUT_FILE"
