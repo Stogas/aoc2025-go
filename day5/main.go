@@ -3,6 +3,7 @@
 // resumed        at: 2025-12-05 16:19:56+02:00
 // finished part1 at: 2025-12-05 17:16:14+02:00 # fuckin finally
 // finished part2 at: 2025-12-05 17:20:46+02:00 # at least this was instant
+// part1: 2h 39m 26s (active), part2: 4m 32s
 
 package main
 

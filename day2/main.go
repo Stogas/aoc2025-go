@@ -1,6 +1,7 @@
 // started        at: 2025-12-02 10:48:28+02:00 // went on a bathroom break for about 6 minutes tho
 // finished part1 at: 2025-12-02 11:24:34+02:00
 // finished part2 at: 2025-12-02 11:46:54+02:00
+// part1: 36m 6s, part2: 22m 20s
 
 package main
 

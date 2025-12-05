@@ -1,6 +1,7 @@
 // started        at: 2025-12-03 11:27:17+02:00
 // finished part1 at: 2025-12-03 11:57:22+02:00
 // finished part2 at: 2025-12-03 12:32:58+02:00
+// part1: 30m 5s, part2: 35m 36s
 
 package main
 
