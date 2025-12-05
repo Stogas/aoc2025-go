@@ -2,7 +2,7 @@
 // paused         at: 2025-12-05 14:24:15+02:00
 // resumed        at: 2025-12-05 16:19:56+02:00
 // finished part1 at: 2025-12-05 17:16:14+02:00 # fuckin finally
-// finished part2 at: ---
+// finished part2 at: 2025-12-05 17:20:46+02:00 # at least this was instant
 
 package main
 
@@ -224,7 +224,24 @@ func part2(input string) int {
 	db := parseInput(input)
 	fmt.Println(db)
 
-	return 0
+	// 1. sort ranges based on the "from" number
+	sort.Slice(db.ranges, func(i, j int) bool {
+		return db.ranges[i].from < db.ranges[j].from
+	})
+	fmt.Printf("Sorted ranges DB:\n%v\n\n", db)
+
+	// 2. deduplicate overlapping ranges
+	db.ranges = deduplicateRanges2(db.ranges)
+
+	// print after sorting everything and deduplicating:
+	fmt.Printf("Sorted and deduplicated DB:\n%v\n\n", db)
+
+	// 4. check sequentially
+	possibleFreshItems := 0
+	for _, r := range db.ranges {
+		possibleFreshItems += r.upTo - r.from + 1
+	}
+	return possibleFreshItems
 }
 
 func parseInput(input string) database {

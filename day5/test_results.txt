@@ -1,4 +1,4 @@
 # Expected answers for the sample input in test.txt
 # Replace ? with the numeric answer once the part is solved.
 part1=3
-part2=?
+part2=14
