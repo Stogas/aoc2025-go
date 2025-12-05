@@ -25,11 +25,17 @@ RAM (MB): 15903
 
 | Metric      | Value (ms) |
 |-------------|------------|
-| Min         | 5       |
-| Median      | 6    |
-| Average     | 6       |
-| P95         | 7    |
-| Max         | 8       |
+| Min         | 7       |
+| Median      | 8    |
+| Average     | 7       |
+| P95         | 8    |
+| Max         | 9       |
+
+| Memory      | Value (MB) |
+|-------------|------------|
+| Min         | 3   |
+| Average     | 3   |
+| Max         | 3   |
 
 # Day 1 Part 2
 
@@ -56,8 +62,14 @@ RAM (MB): 15903
 
 | Metric      | Value (ms) |
 |-------------|------------|
-| Min         | 6       |
-| Median      | 6    |
-| Average     | 6       |
-| P95         | 7    |
-| Max         | 8       |
+| Min         | 7       |
+| Median      | 8    |
+| Average     | 7       |
+| P95         | 9    |
+| Max         | 10       |
+
+| Memory      | Value (MB) |
+|-------------|------------|
+| Min         | 3   |
+| Average     | 3   |
+| Max         | 3   |
