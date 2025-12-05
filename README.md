@@ -4,8 +4,9 @@
 
 Some best practices are deliberately ignored here. For example - I use `panic()` for any errors, [use `init()` functions](https://github.com/leighmcculloch/gochecknoinits), etc.
 
-
 Each day's challenge is completely self-contained in its directory, with no efforts made to deduplicate any code (other than having a skeleton template), update older challenges with any improvements made to the template in newer challenges, etc.
+
+Inputs are not included, as requested in the [AoC FAQ](https://adventofcode.com/2025/about) (had to edit git history for this, so all commits before day6 are created at the same timestamp).
 
 #### Benchmark Results
 
