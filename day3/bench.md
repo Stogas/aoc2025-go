@@ -10,9 +10,9 @@ Benchmarked using https://github.com/Stogas/aoc-bench-script
 ## System Information
 
 ```
-CPU model: Apple M4 Pro
-CPU cores: 14
-RAM (MB): 24576
+CPU model: AMD Ryzen 5 5600X 6-Core Processor
+CPU cores: 12
+RAM (MB): 15903
 ```
 
 ## Warmup (2 runs)
@@ -25,11 +25,11 @@ RAM (MB): 24576
 
 | Metric      | Value (ms) |
 |-------------|------------|
-| Min         | 4       |
-| Median      | 5    |
-| Average     | 5       |
-| P95         | 6    |
-| Max         | 8       |
+| Min         | 2       |
+| Median      | 3    |
+| Average     | 2       |
+| P95         | 3    |
+| Max         | 3       |
 
 # Day 3 Part 2
 
@@ -41,9 +41,9 @@ RAM (MB): 24576
 ## System Information
 
 ```
-CPU model: Apple M4 Pro
-CPU cores: 14
-RAM (MB): 24576
+CPU model: AMD Ryzen 5 5600X 6-Core Processor
+CPU cores: 12
+RAM (MB): 15903
 ```
 
 ## Warmup (2 runs)
@@ -56,8 +56,8 @@ RAM (MB): 24576
 
 | Metric      | Value (ms) |
 |-------------|------------|
-| Min         | 5       |
-| Median      | 5    |
-| Average     | 5       |
-| P95         | 6    |
-| Max         | 6       |
+| Min         | 3       |
+| Median      | 4    |
+| Average     | 3       |
+| P95         | 4    |
+| Max         | 5       |
