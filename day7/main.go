@@ -1,6 +1,7 @@
 // started        at: 2025-12-07 14:15:00+02:00 # note: this is an estimate, forgot to capture it accurately
-// finished part1 at: 2025-12-07 14:33:03+02:00
-// finished part2 at: 2025-12-07 14:41:44+02:00 # I was lucky to have a good algorithm in part1
+// finished part1 at: 2025-12-07 14:33:03+02:00 # but indeed today was relatively easy since I got a good algorithm
+// finished part2 at: 2025-12-07 14:41:44+02:00 # from the very beginning
+// part1: 18m 3s (estimate), part2: 8m 41s
 
 package main
 
