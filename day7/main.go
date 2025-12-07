@@ -1,6 +1,6 @@
 // started        at: 2025-12-07 14:15:00+02:00 # note: this is an estimate, forgot to capture it accurately
 // finished part1 at: 2025-12-07 14:33:03+02:00
-// finished part2 at: ---
+// finished part2 at: 2025-12-07 14:41:44+02:00 # I was lucky to have a good algorithm in part1
 
 package main
 
@@ -108,10 +108,42 @@ func createOrSplitBeams(row string, currentBeams []bool) (splitCount int) {
 // Keep this function signature intact for unit tests to work seamlessly.
 func part2(input string) int {
 	rows, source := parseInput(input)
-	fmt.Printf("Rows: %v", rows)
+	// fmt.Printf("Rows: %v", rows)
 	fmt.Printf("Source coords: %d,%d\n", source.rowIdx, source.columnIdx)
 
-	return 0
+	currentTimelines := make([]int, len(rows[0]))
+
+	for _, row := range rows {
+		createOrSplitTimelines(row, currentTimelines)
+	}
+
+	totalTimelines := 0
+	for _, timelineCount := range currentTimelines {
+		totalTimelines += timelineCount
+	}
+
+	return totalTimelines
+}
+
+func createOrSplitTimelines(row string, currentTimelines []int) {
+	// note that in Go, slices (like []bool) are passed essentially as pointers, so we can modify it here without returning it
+
+	for idx, char := range row {
+		if char == 'S' { // there's a beam source here
+			currentTimelines[idx] = 1
+		}
+		if currentTimelines[idx] > 0 { // there's a timeline descending here
+			if char == '^' { // and a splitter that splits it
+				if idx-1 >= 0 { // there's space to the left to split timelines there
+					currentTimelines[idx-1] += currentTimelines[idx]
+				}
+				if idx+1 < len(row) { // there's space to the right to split timelines there
+					currentTimelines[idx+1] += currentTimelines[idx]
+				}
+				currentTimelines[idx] = 0 // we split the timelines, it's not in this column anymore
+			}
+		}
+	}
 }
 
 func parseInput(input string) (rows []string, source coordinates) {
