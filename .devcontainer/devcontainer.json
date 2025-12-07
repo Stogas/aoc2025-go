@@ -10,6 +10,9 @@
 	},
 	"remoteUser": "developer",
 	"containerUser": "developer",
+	// "capAdd": [
+	// 	"CAP_PERFMON" // for detailed benchmarking
+	// ],
 	// vscode settings
 	"customizations": {
 		"vscode": {
