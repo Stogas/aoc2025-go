@@ -56,6 +56,8 @@ func main() {
 	fmt.Println("Output:", answer)
 }
 
+// ========== UNIQUE DAY SOLUTION CODE BELOW ==========
+
 // part1 solves part 1 of the day's challenge.
 // Keep this function signature intact for unit tests to work seamlessly.
 func part1(input string) int {
