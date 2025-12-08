@@ -8,7 +8,7 @@
 //
 // although neither of these part solutions are satisfactory,
 // both have crazy runtimes (see bench.md).
-// I'll have to revisit this and find a better algorithm (Union-Find instead of joinCircuits()?)
+// I'll have to revisit this and find a better algorithm (Heap via container/heap?)
 
 package main
 
