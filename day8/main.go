@@ -2,7 +2,13 @@
 // paused         at: 2025-12-08 18:58:55+02:00
 // resumed        at: 2025-12-08 19:24:30+02:00
 // finished part1 at: 2025-12-08 21:45:29+02:00
-// finished part2 at: ---
+// finished part2 at: 2025-12-08 22:24:55+02:00
+// part1: 2h 42m 33s, part2: 39m 26s
+//
+//
+// although neither of these part solutions are satisfactory,
+// both have crazy runtimes (see bench.md).
+// I'll have to revisit this and find a better algorithm
 
 package main
 
@@ -255,10 +261,102 @@ func circuitSizes(j []junction) map[int]int {
 // part2 solves part 2 of the day's challenge.
 // Keep this function signature intact for unit tests to work seamlessly.
 func part2(input string, test bool) int {
-	parsed := parseInput(input)
-	fmt.Println(parsed)
+	junctions := parseInput(input)
+	fmt.Println(junctions)
 
-	return 0
+	fmt.Println("")
+	fmt.Println("Finding all distances sorted increasing")
+	allDistances := findAllDistancesSortedIncreasing2(junctions)
+
+	fmt.Println("Assigning junctions to circuits")
+	lastA, lastB := assignJunctionsToCircuits2(junctions, allDistances)
+
+	fmt.Printf("lastA: %v, lastB: %v\n", lastA, lastB)
+
+	return lastA.position.x * lastB.position.x
+}
+
+func findAllDistancesSortedIncreasing2(j []junction) (distances []connection) {
+	for i := range j { // loop over every junction
+		if i >= len(j)-1 { // last element
+			break
+		}
+		for ii := i + 1; ii < len(j); ii++ { // loop over every junction after it (previous ones already have connections calculated)
+			c := connection{junctionIdx: [2]int{i, ii}, distance: euclideanDistance(j[i], j[ii])}
+			distances = insertSortedDistance(distances, c, math.MaxInt64)
+		}
+	}
+
+	return distances
+}
+
+func assignJunctionsToCircuits2(j []junction, connections []connection) (lastA, lastB junction) {
+	uniqueCircuits := len(j)
+
+	currentCircuit := 1
+	for _, c := range connections {
+		// fmt.Printf("\tAmount of circuits: %d\n", uniqueCircuits)
+		jidx0 := c.junctionIdx[0]
+		jidx1 := c.junctionIdx[1]
+		// if uniqueCircuits <= 1 {
+		// 	return j[connections[cIdx-1].junctionIdx[0]], j[connections[cIdx-1].junctionIdx[1]]
+		// }
+
+		// fmt.Printf("Comparing junctions %v and %v\n", j[jidx0], j[jidx1])
+		if j[jidx0].connected != j[jidx1].connected { // Only one of these is connected, connect the other one
+			if j[jidx0].connected {
+				// fmt.Printf("\tfirst connected! to circuit %d\n", j[jidx0].circuitNumber)
+				j[jidx1].circuitNumber = j[jidx0].circuitNumber
+				j[jidx1].connected = true
+				uniqueCircuits--
+				if uniqueCircuits == 1 {
+					return j[jidx0], j[jidx1]
+				}
+			} else {
+				// fmt.Printf("\tseconds connected! to circuit %d\n", j[jidx1].circuitNumber)
+				j[jidx0].circuitNumber = j[jidx1].circuitNumber
+				j[jidx0].connected = true
+				uniqueCircuits--
+				if uniqueCircuits == 1 {
+					return j[jidx0], j[jidx1]
+				}
+			}
+			continue
+		}
+
+		if j[jidx0].connected && j[jidx1].connected { // both are connected
+			// fmt.Printf("\tboth connected!\n")
+			if j[jidx0].circuitNumber == j[jidx1].circuitNumber { // and both are on the same circuit already, do nothing
+				// fmt.Printf("\tto same circuit already: %d\n", j[jidx0].circuitNumber)
+				continue
+			}
+
+			// both connected, but different circuits!
+			// convert one of them into the other
+
+			// fmt.Printf("I am joining circuit %d (disappears) and %d (merged)\n", j[jidx0].circuitNumber, j[jidx1].circuitNumber)
+			joinCircuits(j[jidx0].circuitNumber, j[jidx1].circuitNumber, j)
+			uniqueCircuits--
+			if uniqueCircuits == 1 {
+				return j[jidx0], j[jidx1]
+			}
+			continue
+		}
+
+		// neither are connected!
+		// fmt.Printf("\tneither connected! connecting to circuit %d\n", currentCircuit)
+		j[jidx0].circuitNumber = currentCircuit
+		j[jidx1].circuitNumber = currentCircuit
+		j[jidx0].connected = true
+		j[jidx1].connected = true
+		uniqueCircuits--
+		if uniqueCircuits == 1 {
+			return j[jidx0], j[jidx1]
+		}
+		currentCircuit++
+	}
+
+	return junction{}, junction{}
 }
 
 func parseInput(input string) []junction {
