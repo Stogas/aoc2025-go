@@ -123,7 +123,7 @@ func part1(input string, test bool) int {
 		circuits = append(circuits, circuit{number: 0, size: 1})
 	}
 
-	fmt.Printf("Biggest circuits:\n%v\n%v\n%v\nsum: %v\n", circuits[0].size, circuits[1].size, circuits[2].size, circuits[0].size*circuits[1].size*circuits[2].size)
+	fmt.Printf("Biggest circuit sizes:\n%v\n%v\n%v\n", circuits[0].size, circuits[1].size, circuits[2].size)
 
 	return circuits[0].size * circuits[1].size * circuits[2].size
 }
@@ -233,7 +233,7 @@ func assignJunctionsToCircuits(j []junction, shortestConnections []connection, c
 }
 
 func joinCircuits(circuitA, circuitB int, j []junction) {
-	fmt.Printf("Joining circuits %d and %d\n", circuitA, circuitB)
+	// fmt.Printf("Joining circuits %d and %d\n", circuitA, circuitB)
 	for i := range j {
 		if j[i].circuitNumber == circuitA {
 			j[i].circuitNumber = circuitB
