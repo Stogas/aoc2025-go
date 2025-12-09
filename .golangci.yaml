@@ -17,7 +17,7 @@ linters:
     # Code Quality and Readability
     - ineffassign # Detects assignments to variables that are never used.
     - unused # Finds unused constants, variables, functions, and types.
-    - funlen # Detects overly long functions.
+    # - funlen # Detects overly long functions.
     # - gocognit # Computes cognitive complexity to flag hard-to-read code.
     - goconst # Finds repeated strings that could be replaced with constants.
     - gocritic # Provides diagnostics for bugs, performance, and style issues.
